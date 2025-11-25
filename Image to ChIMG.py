@@ -22,20 +22,11 @@ except Exception as exc:
 	exit()
 
 
-#-----------------------------------------
-# Convert [Any (e.g, kilo)]bytes to bytes |
-#-----------------------------------------
-def KBtoB(KB):
-	return KB * 1000
-
-
 #-----------------------
 # Pre-defined variables |
 #-----------------------
 imageFile = r"image/file/path.png" # Change this to the location of your image on your computer.
-maxCompCheck = KBtoB(10) # The maximum check for compressing data.
-# Jesus fucking christ, I wish Python could support commas for numbers to make it more readable, but I guess it makes sense for it not to.
-# Eh, I'll simplify it.
+maxCompCheck = 10_000
 compressors = {
 	1: lzma.compress,
 	2: zlib.compress
@@ -117,4 +108,5 @@ compImgData = compressors[encoder](imgData)
 finalImageData = f"ChImg;;{image.mode};;{image.img.size};;{encoder}:;".encode("UTF-8")
 
 open(os.path.join(os.path.dirname(imageFile), (os.path.basename(imageFile) + ".ChImg")), "wb").write(finalImageData + compImgData) # Writes the data to a file.
+
 
